@@ -1,0 +1,94 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: spamshield_db
+    environment:
+      POSTGRES_USER: spamshield
+      POSTGRES_PASSWORD: spamshield123
+      POSTGRES_DB: spamshield
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U spamshield"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - spamshield_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: spamshield_cache
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - spamshield_network
+
+  api:
+    build: .
+    container_name: spamshield_api
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://spamshield:spamshield123@postgres:5432/spamshield
+      REDIS_URL: redis://redis:6379
+      DEBUG: "false"
+      SECRET_KEY: your-secret-key-change-this
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./logs:/app/logs
+    networks:
+      - spamshield_network
+    restart: unless-stopped
+
+  # Optional: Monitoring stack
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: spamshield_prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - spamshield_network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: spamshield_grafana
+    depends_on:
+      - prometheus
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - spamshield_network
+
+volumes:
+  postgres_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  spamshield_network:
+    driver: bridge

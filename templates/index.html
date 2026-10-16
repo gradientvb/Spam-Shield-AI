@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>SpamShield AI</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Heading -->
+
+        <h1>SpamShield AI</h1>
+
+        <p class="subtitle">
+            AI Powered Spam Email Detection System
+        </p>
+
+        <!-- Form -->
+
+        <form action="/predict" method="POST">
+
+            <textarea
+                name="message"
+                placeholder="Enter your email or message here..."
+                required></textarea>
+
+            <button type="submit">
+                Analyze Message
+            </button>
+
+        </form>
+
+        <!-- Prediction Result -->
+
+        {% if prediction %}
+
+        <div class="result">
+
+            {% if prediction == "Spam Message" %}
+
+            <h2 class="spam">
+                🚨 Spam Detected
+            </h2>
+
+            {% else %}
+
+            <h2 class="safe">
+                ✅ Safe Message
+            </h2>
+
+            {% endif %}
+
+            <!-- Probability -->
+
+            <div class="probability-box">
+
+                <p>
+                    Spam Probability
+                </p>
+
+                <h3>
+                    {{ probability }}%
+                </h3>
+
+            </div>
+
+            <!-- Progress Bar -->
+
+            <div class="progress-container">
+
+                <div class="progress-bar"
+                    style="width: {{ probability }}%;">
+
+                </div>
+
+            </div>
+
+            <!-- Keywords -->
+
+            {% if keywords %}
+
+            <div class="keywords">
+
+                <h3>
+                    Suspicious Keywords Detected
+                </h3>
+
+                <div class="tag-container">
+
+                    {% for word in keywords %}
+
+                    <span class="tag">
+                        {{ word }}
+                    </span>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        {% endif %}
+
+        <!-- Metrics Section -->
+
+        <div class="metrics">
+
+            <h2>Model Performance</h2>
+
+            <div class="metric-box">
+
+                <div class="metric-card">
+
+                    <h3>Accuracy</h3>
+
+                    <p>98%</p>
+
+                </div>
+
+                <div class="metric-card">
+
+                    <h3>Precision</h3>
+
+                    <p>97%</p>
+
+                </div>
+
+                <div class="metric-card">
+
+                    <h3>Recall</h3>
+
+                    <p>96%</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

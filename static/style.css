@@ -1,0 +1,248 @@
+body {
+
+    margin: 0;
+    padding: 0;
+
+    font-family: Arial, sans-serif;
+
+    background: #121212;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 100vh;
+}
+
+.container {
+
+    width: 550px;
+
+    background: #1e1e1e;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+
+    margin: 30px 0;
+}
+
+h1 {
+
+    text-align: center;
+
+    font-size: 38px;
+
+    margin-bottom: 10px;
+
+    color: #00d2d3;
+}
+
+.subtitle {
+
+    text-align: center;
+
+    color: #b2bec3;
+
+    margin-bottom: 30px;
+}
+
+textarea {
+
+    width: 100%;
+
+    height: 180px;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    resize: none;
+
+    font-size: 16px;
+
+    box-sizing: border-box;
+}
+
+button {
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #00b894;
+
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+button:hover {
+
+    background: #019875;
+}
+
+.result {
+
+    margin-top: 30px;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    background: #2d3436;
+
+    text-align: center;
+}
+
+.spam {
+
+    color: #ff7675;
+
+    font-size: 42px;
+}
+
+.safe {
+
+    color: #55efc4;
+
+    font-size: 42px;
+}
+
+.probability-box {
+
+    margin-top: 20px;
+}
+
+.probability-box p {
+
+    font-size: 20px;
+}
+
+.probability-box h3 {
+
+    font-size: 40px;
+
+    margin-top: 10px;
+
+    color: #ffffff;
+}
+
+.progress-container {
+
+    width: 100%;
+
+    height: 18px;
+
+    background: #636e72;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin-top: 20px;
+}
+
+.progress-bar {
+
+    height: 100%;
+
+    background: #00cec9;
+
+    border-radius: 20px;
+}
+
+.keywords {
+
+    margin-top: 30px;
+}
+
+.keywords h3 {
+
+    margin-bottom: 20px;
+}
+
+.tag-container {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.tag {
+
+    background: crimson;
+
+    color: white;
+
+    padding: 10px 18px;
+
+    border-radius: 20px;
+
+    font-size: 15px;
+}
+
+.metrics {
+
+    margin-top: 40px;
+
+    text-align: center;
+}
+
+.metrics h2 {
+
+    margin-bottom: 20px;
+
+    color: #00cec9;
+}
+
+.metric-box {
+
+    display: flex;
+
+    gap: 15px;
+}
+
+.metric-card {
+
+    flex: 1;
+
+    background: #2d3436;
+
+    padding: 25px;
+
+    border-radius: 12px;
+}
+
+.metric-card h3 {
+
+    margin-bottom: 15px;
+
+    color: #81ecec;
+}
+
+.metric-card p {
+
+    font-size: 30px;
+
+    font-weight: bold;
+}
